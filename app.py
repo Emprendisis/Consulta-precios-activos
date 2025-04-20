@@ -33,5 +33,3 @@ if st.button("🔽 Obtener precios"):
                 st.download_button("📥 Descargar en Excel", f, file_name=excel_file)
     except Exception as e:
         st.error(f"❌ Ocurrió un error: {e}")
-Grave: Se ha producido un error. El error registrado es:<br>	Unable to convert the given package <br>	Para obtener más información, consulte el registro detallado.
-Estado: La operación Importar ha finalizado.
