@@ -25,11 +25,14 @@ if st.button("🔽 Obtener precios"):
             st.warning("⚠️ No se encontraron datos para los criterios seleccionados.")
         else:
             precios = data[['Close']].rename(columns={'Close': 'Precio de Cierre'})
-            st.success(f"✅ Datos obtenidos para {ticker}")
-            st.line_chart(precios)
-            excel_file = f"{ticker}_{intervalos[frecuencia]}_{plazos[plazo]}.xlsx"
-            precios.to_excel(excel_file)
-            with open(excel_file, "rb") as f:
-                st.download_button("📥 Descargar en Excel", f, file_name=excel_file)
+st.success(f"✅ Datos obtenidos para {ticker}")
+st.line_chart(precios)
+
+excel_file = f"{ticker}_{intervalos[frecuencia]}_{plazos[plazo]}.xlsx"
+precios.index = precios.index.tz_localize(None)  # ← Esta línea soluciona el error
+precios.to_excel(excel_file)
+
+with open(excel_file, "rb") as f:
+    st.download_button("📥 Descargar en Excel", f, file_name=excel_file)
     except Exception as e:
         st.error(f"❌ Ocurrió un error: {e}")
